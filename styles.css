@@ -2344,156 +2344,92 @@ margin: 20px auto;  /* Center alignment and vertical spacing */
 .modal {
     display: none; /* Hidden by default */
     position: fixed;
-    z-index: 9999; /* Ensures the modal is on top */
+    z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Darker background */
-    display: flex; /* Flexbox to center the modal */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
     justify-content: center;
     align-items: center;
-    padding: 10px; /* Some padding around the modal */
 }
 
 /* Modal content */
 .modal-content {
-    background-color: #fff; /* White background */
-    padding: 30px;
-    width: 400px;
-    border-radius: 12px;
+    background-color: #fff;
+    padding: 20px;
+    width: 350px;
+    border-radius: 10px;
     position: relative;
     text-align: center;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Deeper shadow for a more floating effect */
-    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transition effect */
-}
-
-/* Modal Content Animation */
-.modal-content.show {
-    transform: scale(1.05); /* Slightly enlarge modal when it shows */
-    opacity: 1;
-}
-
-.modal-content.hide {
-    transform: scale(0.95); /* Shrink modal when hiding */
-    opacity: 0.8;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Close button */
 .close-btn {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    font-size: 24px;
-    color: #333;
-    font-weight: bold;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    color: #666;
     cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.close-btn:hover {
-    color: #ff5f5f; /* Change color on hover to indicate action */
 }
 
 /* Modal header */
 .modal-header {
-    font-size: 22px;
+    font-size: 18px;
     color: #333;
-    font-weight: 600;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    border-bottom: 2px solid #f0f0f0; /* Subtle border below the header */
-    padding-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 /* Warning message */
 .modal-warning {
-    font-size: 14px;
-    color: #ff9c00;
+    font-size: 12px;
+    color: #555;
     margin-bottom: 15px;
-    font-style: italic;
     text-align: left;
-    padding: 10px;
-    border: 1px solid #ff9c00;
-    border-radius: 8px;
-    background-color: #fff8e1;
 }
 
 /* Form styles */
 .modal-form-group {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-align: left;
 }
 
-/* Form label styles */
 .modal-form-label {
     display: block;
-    font-size: 16px;
+    font-size: 14px;
     color: #333;
-    margin-bottom: 8px;
-    font-weight: 500;
+    margin-bottom: 5px;
 }
 
-/* Select and Input field styling */
 .modal-form-select,
 .modal-form-input {
     width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border: 2px solid #ddd;
-    border-radius: 6px;
-    margin-top: 5px;
-    box-sizing: border-box; /* Ensure padding does not overflow the element */
-    transition: border-color 0.3s ease;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
-/* Input field styling when readonly */
 .modal-form-input[readonly] {
-    background-color: #f7f7f7;
+    background-color: #f3f3f3;
     color: #888;
 }
 
-/* Focus state for input and select */
-.modal-form-select:focus,
-.modal-form-input:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Light blue shadow on focus */
-}
-
-/* Submit Button Styling */
 .modal-form-button {
     width: 100%;
-    padding: 14px;
-    font-size: 16px;
+    padding: 12px;
+    font-size: 14px;
     color: #fff;
     background-color: #007bff;
     border: none;
-    border-radius: 6px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .modal-form-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: scale(1.05); /* Slightly enlarge the button on hover */
-}
-
-/* Add some responsive design */
-@media (max-width: 480px) {
-    .modal-content {
-        width: 90%;
-        padding: 20px;
-    }
-
-    .modal-header {
-        font-size: 20px;
-    }
-
-    .modal-form-button {
-        font-size: 14px;
-    }
+    background-color: #0056b3;
 }
 
 
