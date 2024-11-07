@@ -65,7 +65,8 @@ const currencyData = {
     "Peru": "PEN",
     "Jordan": "JOD",
     "Kuwait": "KWD",
-    "Lebanon": "LBP"
+    "Lebanon": "LBP",
+    "Bangladesh" : "BDT"
 };
 
 // Populate dropdown with countries
@@ -274,53 +275,75 @@ saveButton.addEventListener("click", () => {
 
 
 
-// Open modal when the button is clicked
-document.getElementById('shareButton').onclick = function() {
-    document.getElementById('shareModalUnique').style.display = "block";
+// Function to show the modal and dynamically update it
+function showModal() {
+    // Get the modal element
+    const modal = document.getElementById("shareModal");
+
+    // Get the modal image and heading elements
+    const modalImage = document.getElementById("modalImage");
+    const modalHeading = document.getElementById("modalHeading");
+
+    // Get the main image and heading from your gallery (based on class names)
+    const mainImage = document.querySelector(".gallery-main-img"); // Select the main image element
+    const mainHeading = document.querySelector(".property-title"); // Select the main heading element
+
+    // Check if the main image and heading exist
+    if (mainImage && mainHeading) {
+        // Update the modal image and heading with the content of the main image and heading
+        modalImage.src = mainImage.src; // Set the modal image source to the main image's source
+        modalHeading.innerText = mainHeading.innerText; // Set the modal heading text to the main heading's text
+    }
+
+    // Display the modal
+    modal.style.display = "block";
+}
+
+// Function to hide the modal
+function hideModal() {
+    const modal = document.getElementById("shareModal");
+    modal.style.display = "none";
+}
+
+// Function to copy the website link
+function copyLink() {
+    const copyText = window.location.href; // Use the current page's URL
+    const textArea = document.createElement("textarea");
+    textArea.value = copyText;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+
+    // Change button text to "Link Copied!"
+    const copyButton = document.getElementById("copyLinkBtn");
+    copyButton.innerText = "Link Copied!";
+
+    // Reset the button text after 3 seconds
+    setTimeout(function() {
+        copyButton.innerText = "Copy Website Link"; // Reset back to original text
+    }, 3000); // 3 seconds delay
+}
+
+// Event listener for the share button
+document.getElementById("shareButton").onclick = function() {
+    showModal(); // Show the modal when the share button is clicked
 };
 
-// Close modal when 'X' is clicked
-document.getElementById('closeModal').onclick = function() {
-    document.getElementById('shareModalUnique').style.display = "none";
+// Event listener for closing the modal
+document.getElementById("closeModal").onclick = function() {
+    hideModal(); // Close the modal when the close button is clicked
 };
 
-// Close modal if the user clicks anywhere outside the modal
+// Event listener for closing the modal if the user clicks outside the modal
 window.onclick = function(event) {
-    if (event.target == document.getElementById('shareModalUnique')) {
-        document.getElementById('shareModalUnique').style.display = "none";
+    const modal = document.getElementById("shareModal");
+    if (event.target === modal) {
+        hideModal(); // Close the modal if the user clicks outside of it
     }
 };
 
-// Share on social media
-document.getElementById('facebookShare').onclick = function() {
-    window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.getElementById('siteUrl').innerText), '_blank');
+// Event listener for copying the link
+document.getElementById("copyLinkBtn").onclick = function() {
+    copyLink(); // Copy the link when the "Copy Link" button is clicked
 };
-
-document.getElementById('twitterShare').onclick = function() {
-    window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(document.getElementById('siteUrl').innerText), '_blank');
-};
-
-document.getElementById('linkedinShare').onclick = function() {
-    window.open('https://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(document.getElementById('siteUrl').innerText), '_blank');
-};
-
-// Copy URL to clipboard
-document.getElementById('copyUrlBtn').onclick = function() {
-    const url = document.getElementById('siteUrl').innerText;
-    navigator.clipboard.writeText(url).then(function() {
-        alert("URL copied to clipboard!");
-    }).catch(function(err) {
-        console.error('Error copying URL: ', err);
-    });
-};
-
-
-
-
-
-
-
-
-
-
-

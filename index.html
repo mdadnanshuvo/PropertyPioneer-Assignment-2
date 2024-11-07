@@ -74,10 +74,43 @@
             <a href="#" class="back-link">← See all properties</a>
             <div class="action-btns">
            
+             
 
                 <button class="share-button" id="shareButton">
                     <img class="share-icon" src="./assets/icons/send.png" alt="Share Icon"> Share
-                  </button>
+                </button>
+                
+                <!-- The Modal -->
+                <div id="shareModal" class="share-modal">
+                    <div class="share-modal-content">
+                        <span class="share-close-btn" id="closeModal">&times;</span>
+                        
+                        <!-- Modal Header with Image and Heading (Dynamic content will be inserted here) -->
+                        <div class="share-modal-header">
+                            <img src="https://via.placeholder.com/400x200" alt="Main Image" id="modalImage">
+                            <h3 id="modalHeading">Check Out Our Website!</h3>
+                        </div>
+                
+                        <!-- Social Icons -->
+                        <div class="share-social-icons">
+                            <i class="fab fa-facebook-square"></i>
+                            <i class="fab fa-twitter-square"></i>
+                            <i class="fab fa-linkedin"></i>
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                
+                       <!-- Copy Link Button -->
+<button class="share-copy-link-btn" id="copyLinkBtn">Copy Website Link</button>
+
+<!-- Confirmation Message (Hidden by default) -->
+<p id="copyConfirmation" style="display:none; color: green; font-weight: bold; margin-top: 10px;">
+    Link Copied!
+</p>
+
+                    </div>
+                </div>
+
+
                 
                  
 
@@ -130,7 +163,7 @@
                 
 
 
-                <img id="main-image" class="gallery-main-img" src="./assets/images/house1.jpg" alt="Lake view">
+                <img  class="gallery-main-img" src="./assets/images/house1.jpg" alt="Lake view">
             </div>
             <div class="gallery-side">
                 <img class="gallery-side-img" src="./assets/images/house2.jpg" alt="Property">
@@ -161,7 +194,7 @@
             <!-- Left Column -->
             <div class="property-details">
                 <div class="property-type">Entire home</div>
-                <h1 id="main-heading" class="property-title">Juneau Vacation Home: Stunning View + Beach Access</h1>
+                <h1  class="property-title">Juneau Vacation Home: Stunning View + Beach Access</h1>
                 
                 <div class="rating">
                     <span class="rating-badge">9.8 Exceptional</span>

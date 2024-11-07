@@ -2344,92 +2344,156 @@ margin: 20px auto;  /* Center alignment and vertical spacing */
 .modal {
     display: none; /* Hidden by default */
     position: fixed;
-    z-index: 1;
+    z-index: 9999; /* Ensures the modal is on top */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.6); /* Darker background */
+    display: flex; /* Flexbox to center the modal */
     justify-content: center;
     align-items: center;
+    padding: 10px; /* Some padding around the modal */
 }
 
 /* Modal content */
 .modal-content {
-    background-color: #fff;
-    padding: 20px;
-    width: 350px;
-    border-radius: 10px;
+    background-color: #fff; /* White background */
+    padding: 30px;
+    width: 400px;
+    border-radius: 12px;
     position: relative;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Deeper shadow for a more floating effect */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transition effect */
+}
+
+/* Modal Content Animation */
+.modal-content.show {
+    transform: scale(1.05); /* Slightly enlarge modal when it shows */
+    opacity: 1;
+}
+
+.modal-content.hide {
+    transform: scale(0.95); /* Shrink modal when hiding */
+    opacity: 0.8;
 }
 
 /* Close button */
 .close-btn {
     position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 20px;
-    color: #666;
+    top: 12px;
+    right: 12px;
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
     cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: #ff5f5f; /* Change color on hover to indicate action */
 }
 
 /* Modal header */
 .modal-header {
-    font-size: 18px;
+    font-size: 22px;
     color: #333;
-    margin-bottom: 10px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #f0f0f0; /* Subtle border below the header */
+    padding-bottom: 10px;
 }
 
 /* Warning message */
 .modal-warning {
-    font-size: 12px;
-    color: #555;
+    font-size: 14px;
+    color: #ff9c00;
     margin-bottom: 15px;
+    font-style: italic;
     text-align: left;
+    padding: 10px;
+    border: 1px solid #ff9c00;
+    border-radius: 8px;
+    background-color: #fff8e1;
 }
 
 /* Form styles */
 .modal-form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     text-align: left;
 }
 
+/* Form label styles */
 .modal-form-label {
     display: block;
-    font-size: 14px;
+    font-size: 16px;
     color: #333;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    font-weight: 500;
 }
 
+/* Select and Input field styling */
 .modal-form-select,
 .modal-form-input {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    margin-top: 5px;
+    box-sizing: border-box; /* Ensure padding does not overflow the element */
+    transition: border-color 0.3s ease;
 }
 
+/* Input field styling when readonly */
 .modal-form-input[readonly] {
-    background-color: #f3f3f3;
+    background-color: #f7f7f7;
     color: #888;
 }
 
+/* Focus state for input and select */
+.modal-form-select:focus,
+.modal-form-input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Light blue shadow on focus */
+}
+
+/* Submit Button Styling */
 .modal-form-button {
     width: 100%;
-    padding: 12px;
-    font-size: 14px;
+    padding: 14px;
+    font-size: 16px;
     color: #fff;
     background-color: #007bff;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .modal-form-button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+/* Add some responsive design */
+@media (max-width: 480px) {
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .modal-header {
+        font-size: 20px;
+    }
+
+    .modal-form-button {
+        font-size: 14px;
+    }
 }
 
 
@@ -2747,7 +2811,7 @@ margin: 20px auto;  /* Center alignment and vertical spacing */
 
  /* Button Style */
  .share-button {
-    background-color: white; /* Green background */
+    background-color: white; 
     color: black;
     padding: 10px 20px;
     font-size: 14px;
@@ -2770,3 +2834,185 @@ margin: 20px auto;  /* Center alignment and vertical spacing */
 
 
 
+ /* Modal Styling */
+ .share-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0); /* Black with opacity */
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+.share-modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+}
+.share-modal-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.share-modal-header h3 {
+    margin: 10px 0;
+}
+.share-modal-header img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.share-social-icons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+.share-social-icons i {
+    font-size: 30px;
+    cursor: pointer;
+}
+.share-copy-link-btn {
+    padding: 10px;
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+}
+.share-copy-link-btn:hover {
+    background-color: #006f85;
+}
+.share-copy-link-btn:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+/* Close Button */
+.share-close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.share-close-btn:hover,
+.share-close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* Modal Styles */
+.share-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed position */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Black with transparency */
+}
+
+/* Modal Content */
+.share-modal-content {
+    position: relative;
+    background-color: #fff;
+    margin: 10% auto; /* Center the modal */
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Box shadow for depth */
+}
+
+/* Modal Header */
+.share-modal-header {
+    display: flex; /* Flexbox for horizontal alignment */
+    align-items: center; /* Center content vertically */
+    margin-bottom: 20px;
+    justify-content: space-between; /* Space out the image and heading */
+}
+
+/* Image in the modal */
+.share-modal-header img {
+    width: 45%; /* Set width to 45% to give space for heading */
+    height: auto;
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+    border-radius: 8px; /* Rounded corners for the image */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow to image */
+}
+
+/* Modal Heading */
+.share-modal-header h3 {
+    width: 45%; /* Set width to 45% to match image width */
+    font-size: 20px;
+    font-weight: 600;
+    color: #333; /* Dark color for the text */
+    margin: 0; /* Remove default margin */
+    text-align: left;
+    max-width: 400px; /* Limit the heading width */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow to heading */
+    padding: 10px;
+    border-radius: 8px; /* Rounded corners for heading */
+}
+
+/* Social Icons Container */
+.share-social-icons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+/* Social Icons */
+.share-social-icons i {
+    font-size: 24px;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.share-social-icons i:hover {
+    color: #007bff; /* Hover color for icons */
+}
+
+/* Copy Link Button */
+.share-copy-link-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.share-copy-link-btn:hover {
+    background-color: #0056b3; /* Hover effect */
+}
+
+/* Close Button */
+.share-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+}
+
+.share-close-btn:hover {
+    color: red; /* Close button hover effect */
+}
