@@ -65,106 +65,76 @@
     </nav>
     
     
-    
-    
-
     <div class="container">
         <!-- Property Navigation -->
         <div class="property-nav">
             <a href="#" class="back-link">← See all properties</a>
             <div class="action-btns">
-           
-             
-
+     
                 <button class="share-button" id="shareButton">
                     <img class="share-icon" src="./assets/icons/send.png" alt="Share Icon"> Share
                 </button>
                 
                 <!-- The Modal -->
-                <div id="shareModal" class="share-modal">
-                    <div class="share-modal-content">
-                        <span class="share-close-btn" id="closeModal">&times;</span>
-                        
-                        <!-- Modal Header with Image and Heading (Dynamic content will be inserted here) -->
-                        <div class="share-modal-header">
-                            <img src="https://via.placeholder.com/400x200" alt="Main Image" id="modalImage">
-                            <h3 id="modalHeading">Check Out Our Website!</h3>
-                        </div>
-                
-                        <!-- Social Icons -->
-                        <div class="share-social-icons">
-                            <i class="fab fa-facebook-square"></i>
-                            <i class="fab fa-twitter-square"></i>
-                            <i class="fab fa-linkedin"></i>
-                            <i class="fab fa-instagram"></i>
-                        </div>
-                
-                       <!-- Copy Link Button -->
-<button class="share-copy-link-btn" id="copyLinkBtn">Copy Link to ClipBoard</button>
+                <!-- The Modal -->
+<div id="shareModal" class="share-modal">
+    <div class="share-modal-content">
+        <span class="share-close-btn" id="closeModal">&times;</span>
+        
+        <h4 style="text-align: center; margin-bottom: 20px;">Never hesitate to share great things</h4>
+        
+        <!-- Modal Header with Image, Heading, Rating, and Location -->
+        <div class="share-modal-header">
+            <img src="https://via.placeholder.com/400x200" alt="Main Image" id="modalImage">
+            <div class="modal-text">
+                <h3 id="modalHeading">Check Out Our Website!</h3>
+                <p id="modalRating" class="modal-rating">Rating: 9.8/10</p>
+                <p id="modalLocation" class="modal-location">Location: United States of America</p>
+            </div>
+        </div>
+        
+        <!-- Social Icons -->
+        <div class="share-social-icons">
+            <i id="facebookShare" class="fab fa-facebook-square"></i>
+            <i id="twitterShare" class="fab fa-twitter-square"></i>
+            <i id="linkedinShare" class="fab fa-linkedin"></i>
+            <i id="instagramShare" class="fab fa-instagram"></i>
+        </div>
 
-<!-- Confirmation Message (Hidden by default) -->
-<p id="copyConfirmation" style="display:none; color: green; font-weight: bold; margin-top: 10px;">
-    Link Copied!
-</p>
+        <!-- Copy Link Button -->
+        <button class="share-copy-link-btn" id="copyLinkBtn"> <i class="fa-solid fa-link" style="margin: 5px;"></i>Copy Link To Clipboard</button>
 
-                    </div>
-                </div>
+        <!-- Confirmation Message (Hidden by default) -->
+        <p id="copyConfirmation" style="display:none; color: green; font-weight: bold; margin-top: 10px;">
+
+           
+        </p>
+    </div>
+</div> 
+
+<!-- Toast Notification -->
+<div id="toastNotification" class="toast-notification">Link copied successfully!</div>
 
 
-                
-                 
-
-               
                 <button class="btn-save" id="save-button">
                     <i class="fa-regular fa-heart btn-save-icon"></i> Save
-                </button>
-                
-                
-                
-                
-                
+                </button>    
                 
             </div>
         </div>
 
         <!-- Gallery -->
         <div class="gallery">
+            <!-- Main Image with View More Button -->
             <div class="gallery-main">
-                
-               
+                <img class="gallery-main-img" src="./assets/images/house1.jpg" alt="Lake view">
                 <div class="view-more" onclick="openGallery()">
                     <strong>30+</strong>
                     <img class="feature-icons" src="./assets/icons/images.png" alt="Gallery Thumbnail">
                 </div>
-                
-                <!-- Modal for Image Gallery -->
-                <div id="image-gallery-modal" class="gallery-modal">
-                    <div class="modal-content">
-                        <span class="dismiss" onclick="closeGallery()">&times;</span> <!-- Updated position in HTML -->
-                        
-                        <img id="gallery-image" src="" alt="Gallery Image">
-                
-                        <!-- Navigation Buttons -->
-                        <div class="navigation">
-                            <button onclick="prevImage()" id="prevButton">&#10094;</button>
-                            <button onclick="nextImage()" id="nextButton">&#10095;</button>
-                        </div>
-                        
-                        <!-- Image Description and Count -->
-                        <div class="image-info">
-                            <div class="image-description" id="image-description">Photo description here</div>
-                            <div class="image-count" id="image-count"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                
-               
-                
-
-
-                <img  class="gallery-main-img" src="./assets/images/house1.jpg" alt="Lake view">
             </div>
+        
+            <!-- Side Images Container -->
             <div class="gallery-side">
                 <img class="gallery-side-img" src="./assets/images/house2.jpg" alt="Property">
                 <img class="gallery-side-img" src="./assets/images/house3.jpg" alt="Interior">
@@ -172,14 +142,63 @@
                 <img class="gallery-side-img" src="./assets/images/house5.jpg" alt="Interior">
                 <img class="gallery-side-img" src="./assets/images/house6.jpg" alt="Interior">
                 <img class="gallery-side-img" src="./assets/images/house7.jpg" alt="Interior">
-                
             </div>
-            
+        </div>
+        
+        <!-- Modal for Image Gallery -->
+        <div id="image-gallery-modal" class="gallery-modal">
+            <div class="modal-content">
+                <span class="dismiss" onclick="closeGallery()">&times;</span>
+                <img id="gallery-image" src="" alt="Gallery Image">
+                <div class="navigation">
+                    <button onclick="prevImage()" id="prevButton">&#10094;</button>
+                    <button onclick="nextImage()" id="nextButton">&#10095;</button>
+                </div>
+                <div class="image-info">
+                    <div class="image-description" id="image-description">Photo description here</div>
+                    <div class="image-count" id="image-count"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dot Indicators for Scrollable Side Images, Visible Only on Small Screens -->
+        <div class="dots-container">
+            <span class="dot" onclick="scrollToImage(0)"></span>
+            <span class="dot" onclick="scrollToImage(1)"></span>
+            <span class="dot" onclick="scrollToImage(2)"></span>
+            <span class="dot" onclick="scrollToImage(3)"></span>
+            <span class="dot" onclick="scrollToImage(4)"></span>
+            <span class="dot" onclick="scrollToImage(5)"></span>
         </div>
         
         
+        <!-- Modal for Image Gallery -->
+        <div id="image-gallery-modal" class="gallery-modal">
+            <div class="modal-content">
+                <span class="dismiss" onclick="closeGallery()">&times;</span>
+                <img id="gallery-image" src="" alt="Gallery Image">
+                <div class="navigation">
+                    <button onclick="prevImage()" id="prevButton">&#10094;</button>
+                    <button onclick="nextImage()" id="nextButton">&#10095;</button>
+                </div>
+                <div class="image-info">
+                    <div class="image-description" id="image-description">Photo description here</div>
+                    <div class="image-count" id="image-count"></div>
+                </div>
+            </div>
+        </div>
         
-
+        <!-- Dot Indicators for Scrollable Side Images -->
+        <div class="dots-container">
+            <span class="dot" onclick="scrollToImage(0)"></span>
+            <span class="dot" onclick="scrollToImage(1)"></span>
+            <span class="dot" onclick="scrollToImage(2)"></span>
+            <span class="dot" onclick="scrollToImage(3)"></span>
+            <span class="dot" onclick="scrollToImage(4)"></span>
+            <span class="dot" onclick="scrollToImage(5)"></span>
+        </div>
+        
+        
         <!-- Tabs -->
         <div class="tabs">
             <ul class="tab-list">
@@ -289,8 +308,6 @@
                     </div>
                 </div>
             </div>
-                
-
                 </div>
             
 
@@ -301,8 +318,7 @@
                     <div>Members get our best prices when signed in!</div>
                     <button class="btn">Sign in</button>
                 </div>
-                
-                
+
                 <div class="booking-card">
                     <!-- Price Display -->
                     <div class="price-display">
@@ -368,10 +384,6 @@
                     <!-- No Charge Message -->
                     <div class="no-charge">You won’t be charged yet</div>
                 </div>
-                
-                
-
-                
 
             </div>
             
@@ -417,9 +429,6 @@
                         <a href="#" class="link">See all rooms and beds details</a>
                     </div>
                 </div>
-
-
-
 
             <div class="property">
 
@@ -484,8 +493,6 @@
     </div>
 
             </div>
-
-
 
             <div class="pd-container">
                 <!-- Amenities Section -->
@@ -682,10 +689,7 @@
                         </div>
                     </div>
                 </section>
-                
-                
-                
-
+  
                 <section class="rating-section">
                     <div class="rating-header">
                         <div>
@@ -719,9 +723,7 @@
                         <a href="#" class="see-all-reviews">See all 24 reviews</a>
                     </div>
                 </section>
-                
-                
-                
+ 
                 <section class="host-section">
                     <h2 class="section-heading">About the host</h2>
                     <div>Hosted by Evolve</div>
@@ -738,11 +740,11 @@
                 
             </div>
 
-                </div>
+        </div>
              
                
-     <script src="script.js"></script>
+            <script src="script.js"></script>
             
-                </body>
-                </html>
+            </body>
+            </html>
             
