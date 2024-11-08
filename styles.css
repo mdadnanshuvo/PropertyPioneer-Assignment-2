@@ -3,11 +3,11 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
+    
 }
 
 
 
-/* Top Navigation */
 /* Top Navigation Styles */
 .top-nav {
     border-bottom: 1px solid #eee;
@@ -245,68 +245,139 @@
     gap: 6px;
 }
 
-/* Gallery */
+
+
+/* Gallery container */
 .gallery {
-    text-align: center;
-    margin-bottom: 50px;
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping to a new line */
+    justify-content: space-between;
+    gap: 20px;
 }
 
+/* Main image container */
 .gallery-main {
-    margin-bottom: 20px; /* Space between main image and side images */
+    flex: 2; /* Main image takes more space */
+    display: flex;
+    align-items: center;
 }
 
+/* Side images container styled as a grid */
+.gallery-side {
+    flex: 1; /* Side images column takes less space */
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two images per row */
+    gap: 10px;
+    background-color: #f8f8f8;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+/* Individual side images */
+.gallery-side-img {
+    width: 100%;
+    object-fit: cover;
+    height: 120px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* Main image styling */
 .gallery-main-img {
     width: 100%;
-    height: auto;
-    max-height: 400px; /* Limit max height */
-    border-radius: 8px; /* Rounded corners */
-    object-fit: cover; /* Ensure the image covers the area */
-    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for hover effect */
+    object-fit: cover;
+    max-height: 500px;
+    border-radius: 8px;
 }
 
-.gallery-main-img:hover {
-   /* transform: scale(1.05); /* Slight zoom on hover */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
-    border-radius: 0px 50px 0px 50px;
+/* Modal Styling */
+.gallery-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
 }
 
-.gallery-side {
-    display: flex;
-    overflow-x: auto; /* Allow horizontal scrolling */
-    padding: 10px 0;
-    scroll-behavior: smooth; /* Smooth scrolling effect */
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
     position: relative;
 }
 
-.gallery-side-img {
-    min-width: 150px; /* Minimum width of side images */
-    height: auto;
-    margin-right: 10px; /* Space between images */
-    border-radius: 8px; /* Rounded corners */
-    object-fit: cover; /* Ensure the image covers the area */
-    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for hover effect */
+.navigation button {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
 }
 
-.gallery-side-img:hover {
-    transform: scale(1.05); /* Slight zoom on hover */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+/* Styling for dismiss (close) button */
+.dismiss {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    width: 50px;
 }
 
-
-
-
-/* Responsive Design */
+/* Responsive styling for smaller screens */
 @media (max-width: 768px) {
-    .gallery-main-img {
-        max-height: 300px; /* Smaller max height for mobile */
+    .gallery {
+        flex-direction: row; /* Display all images in a single row */
+        overflow-x: auto; /* Enable horizontal scroll */
+        gap: 10px; /* Adjust gap between images */
     }
 
+    .gallery-main
+    {
+        flex: none;
+        width: auto; /* Make images fit within the scrolling container */
+        display: flex;
+        align-items: center;
+        width: 250px;
+        
+    }
     .gallery-side {
-        padding: 5px 0; /* Less padding on mobile */
+        flex: none;
+        width: auto; /* Make images fit within the scrolling container */
+        display: flex;
+        align-items: center;
     }
 
+    .gallery-main-img {
+
+        width: 150px; /* Consistent image width */
+        height: 350px; /* Consistent image height */
+        flex-shrink: 0; /* Prevent images from shrinking in flexbox */
+        border-radius: 4px;
+    }
+    
     .gallery-side-img {
-        min-width: 100px; /* Smaller minimum width for side images on mobile */
+        width: 150px; /* Consistent image width */
+        height: 150px; /* Consistent image height */
+        object-fit: cover;
+        flex-shrink: 0; /* Prevent images from shrinking in flexbox */
+        border-radius: 4px; /* Consistent border radius */
+    
+    }
+
+    /* Align all side images in one row */
+    .gallery-side {
+        display: flex;
+        flex-direction: row;
+        border: 0px;
     }
 }
 
@@ -2378,14 +2449,14 @@ margin: 20px auto;  /* Center alignment and vertical spacing */
 /* Modal header */
 .modal-header {
     font-size: 18px;
-    color: #333;
-    margin-bottom: 10px;
+    color: white;
+    margin-bottom: 15px;
 }
 
 /* Warning message */
 .modal-warning {
-    font-size: 12px;
-    color: #555;
+    font-size: 14px;
+    color: white;
     margin-bottom: 15px;
     text-align: left;
 }
@@ -2399,7 +2470,7 @@ margin: 20px auto;  /* Center alignment and vertical spacing */
 .modal-form-label {
     display: block;
     font-size: 14px;
-    color: #333;
+    color: white;
     margin-bottom: 5px;
 }
 
@@ -2793,9 +2864,14 @@ margin: 20px auto;  /* Center alignment and vertical spacing */
     max-width: 500px;
     border-radius: 10px;
 }
+
+
 .share-modal-header {
     text-align: center;
     margin-bottom: 20px;
+    border: 1px solid rgba(0,0,0,0.4);
+    border-radius: 10px;
+    padding: 8px;
 }
 .share-modal-header h3 {
     margin: 10px 0;
@@ -2835,7 +2911,7 @@ margin: 20px auto;  /* Center alignment and vertical spacing */
 /* Close Button */
 .share-close-btn {
     color: #aaa;
-    float: right;
+    float: left;
     font-size: 28px;
     font-weight: bold;
 }
@@ -2889,66 +2965,57 @@ margin: 20px auto;  /* Center alignment and vertical spacing */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow to image */
 }
 
-/* Modal Heading */
-.share-modal-header h3 {
-    width: 45%; /* Set width to 45% to match image width */
+
+
+
+/* Modal Header */
+.share-modal-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Decrease margin between image and text */
+}
+
+.share-modal-header img {
+    width: 45%;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-right: 15px; /* Add some space between image and text */
+}
+
+.modal-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+#modalHeading {
     font-size: 20px;
     font-weight: 600;
-    color: #333; /* Dark color for the text */
-    margin: 0; /* Remove default margin */
-    text-align: left;
-    max-width: 400px; /* Limit the heading width */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow to heading */
-    padding: 10px;
-    border-radius: 8px; /* Rounded corners for heading */
-}
-
-/* Social Icons Container */
-.share-social-icons {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-}
-
-/* Social Icons */
-.share-social-icons i {
-    font-size: 24px;
-    color: #555;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.share-social-icons i:hover {
-    color: #007bff; /* Hover color for icons */
-}
-
-/* Copy Link Button */
-.share-copy-link-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.share-copy-link-btn:hover {
-    background-color: #0056b3; /* Hover effect */
-}
-
-/* Close Button */
-.share-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
     color: #333;
+    margin: 0;
 }
 
-.share-close-btn:hover {
-    color: red; /* Close button hover effect */
+.modal-rating,
+.modal-location {
+    font-size: 16px;
+    color: #666;
+    margin-top: 5px;
 }
+
+/* Toast Notification */
+.toast-notification {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4CAF50; /* Success color */
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    font-size: 18px;
+    z-index: 900; /* On top of other elements */
+}
+
+
+
