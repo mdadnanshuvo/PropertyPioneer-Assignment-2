@@ -69,6 +69,9 @@ const currencyData = {
     "Bangladesh" : "BDT"
 };
 
+
+
+
 // Populate dropdown with countries
 function populateLocations() {
     const locationSelect = document.getElementById('location');
@@ -347,3 +350,44 @@ window.onclick = function(event) {
 document.getElementById("copyLinkBtn").onclick = function() {
     copyLink(); // Copy the link when the "Copy Link" button is clicked
 };
+
+
+const gallerySide = document.querySelector('.gallery-side');
+const dots = document.querySelectorAll('.dot');
+
+gallerySide.addEventListener('scroll', () => {
+    const index = Math.round(gallerySide.scrollLeft / gallerySide.clientWidth);
+    updateDots(index);
+});
+
+function updateDots(index) {
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+    });
+}
+
+function scrollToImage(index) {
+    gallerySide.scrollLeft = index * gallerySide.clientWidth;
+    updateDots(index);
+}
+
+
+
+document.getElementById("copyLinkBtn").addEventListener("click", function() {
+    // Copy the current page URL to clipboard
+    navigator.clipboard.writeText(window.location.href).then(() => {
+        // Show confirmation message in modal
+        document.getElementById("copyConfirmation").style.display = "block";
+
+        // Show toast notification
+        const toast = document.getElementById("toastNotification");
+        toast.style.display = "block";
+        
+        // Hide the toast after 3 seconds
+        setTimeout(() => {
+            toast.style.display = "none";
+        }, 3000);
+    }).catch((error) => {
+        console.error("Error copying text: ", error);
+    });
+});
