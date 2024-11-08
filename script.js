@@ -1,3 +1,15 @@
+// Caching frequently accessed DOM elements
+const locationSelect = document.getElementById('location');
+const currencyInput = document.getElementById('currency');
+const locationModal = document.getElementById('location-modal');
+const saveLocationButton = document.getElementById('save-location');
+const selectedLocationText = document.getElementById('selected-location');
+const triggerModalButton = document.getElementById('trigger-modal');
+const closeModalButton = document.getElementById('close-modal');
+const travelPopup = document.getElementById("travelers-popup");
+const saveButton = document.getElementById("save-button");
+const heartIcon = saveButton.querySelector(".btn-save-icon");
+
 // Sample data for locations and currencies
 const currencyData = {
     "Portugal": "EUR",
@@ -74,7 +86,7 @@ const currencyData = {
 
 // Populate dropdown with countries
 function populateLocations() {
-    const locationSelect = document.getElementById('location');
+    
     locationSelect.innerHTML = '<option value="">-- Select Region --</option>';
     Object.keys(currencyData).forEach(location => {
         const option = document.createElement('option');
@@ -103,7 +115,7 @@ document.getElementById('close-modal').addEventListener('click', function() {
 
 // Save the selected location and update the displayed link text
 document.getElementById('save-location').addEventListener('click', function() {
-    const locationSelect = document.getElementById('location');
+    
     const selectedLocation = locationSelect.value;
 
     if (selectedLocation) {
@@ -247,9 +259,7 @@ window.onclick = function(event) {
 }
 
 
-// Get the button and icon elements
-const saveButton = document.getElementById("save-button");
-const heartIcon = saveButton.querySelector(".btn-save-icon");
+
 
 // Check if the state is saved in localStorage
 if (localStorage.getItem("isSaved") === "true") {
