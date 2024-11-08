@@ -1,4 +1,4 @@
-// Caching frequently accessed DOM elements
+// Cache DOM elements at the start for frequently accessed elements
 const locationSelect = document.getElementById('location');
 const currencyInput = document.getElementById('currency');
 const locationModal = document.getElementById('location-modal');
@@ -9,6 +9,14 @@ const closeModalButton = document.getElementById('close-modal');
 const travelPopup = document.getElementById("travelers-popup");
 const saveButton = document.getElementById("save-button");
 const heartIcon = saveButton.querySelector(".btn-save-icon");
+const modal = document.getElementById("image-gallery-modal");
+const galleryImage = document.getElementById("gallery-image");
+const imageCount = document.getElementById("image-count");
+const imageDescription = document.getElementById("image-description");
+const prevButton = document.getElementById("prevButton");
+const nextButton = document.getElementById("nextButton");
+const gallerySide = document.querySelector('.gallery-side');
+const dots = document.querySelectorAll('.dot');
 
 // Sample data for locations and currencies
 const currencyData = {
@@ -83,10 +91,8 @@ const currencyData = {
 
 
 
-
 // Populate dropdown with countries
 function populateLocations() {
-    
     locationSelect.innerHTML = '<option value="">-- Select Region --</option>';
     Object.keys(currencyData).forEach(location => {
         const option = document.createElement('option');
@@ -96,98 +102,75 @@ function populateLocations() {
     });
 }
 
-// Update the currency field based on selected location
-document.getElementById('location').addEventListener('change', function() {
+// Update currency field based on selected location
+locationSelect.addEventListener('change', function() {
     const selectedLocation = this.value;
-    document.getElementById('currency').value = selectedLocation ? currencyData[selectedLocation] : "";
+    currencyInput.value = selectedLocation ? currencyData[selectedLocation] : "";
 });
 
-// Show the modal when the trigger link is clicked
-document.getElementById('trigger-modal').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent default link behavior
-    document.getElementById('location-modal').style.display = 'flex';
+// Toggle modal display
+function toggleModal(displayState) {
+    locationModal.style.display = displayState;
+}
+
+// Show the modal
+triggerModalButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    toggleModal('flex');
 });
 
-// Hide the modal when the close button is clicked
-document.getElementById('close-modal').addEventListener('click', function() {
-    document.getElementById('location-modal').style.display = 'none';
+// Hide the modal
+closeModalButton.addEventListener('click', function() {
+    toggleModal('none');
 });
 
-// Save the selected location and update the displayed link text
-document.getElementById('save-location').addEventListener('click', function() {
-    
+// Save location selection
+saveLocationButton.addEventListener('click', function() {
     const selectedLocation = locationSelect.value;
-
-    if (selectedLocation) {
-        // Update the link text with the selected location
-        document.getElementById('selected-location').textContent = selectedLocation;
-    }
-
-    // Hide the modal after saving
-    document.getElementById('location-modal').style.display = 'none';
+    if (selectedLocation) selectedLocationText.textContent = selectedLocation;
+    toggleModal('none');
 });
 
 // Initialize locations on page load
 window.onload = populateLocations;
 
-
-
-
-let adultCount = 2;
-let childCount = 0;
+// Travelers selection handling
+let adultCount = 2, childCount = 0;
 
 function toggleTravelersPopup() {
-    const popup = document.getElementById("travelers-popup");
-    popup.style.display = popup.style.display === "none" || popup.style.display === "" ? "block" : "none";
-    updateButtonStates(); // Call this function to update button states when the popup opens
+    travelPopup.style.display = travelPopup.style.display === "none" || travelPopup.style.display === "" ? "block" : "none";
+    updateButtonStates();
 }
 
 function increment(type) {
-    if (type === 'adults') {
-        adultCount++;
-        document.getElementById("adult-count").textContent = adultCount;
-    } else if (type === 'children') {
-        childCount++;
-        document.getElementById("child-count").textContent = childCount;
-    }
-    updateTotalTravelers();
-    updateButtonStates(); // Update button states after incrementing
+    if (type === 'adults') adultCount++;
+    else if (type === 'children') childCount++;
+    updateTravelers();
 }
 
 function decrement(type) {
-    if (type === 'adults' && adultCount > 0) {
-        adultCount--;
-        document.getElementById("adult-count").textContent = adultCount;
-    } else if (type === 'children' && childCount > 0) {
-        childCount--;
-        document.getElementById("child-count").textContent = childCount;
-    }
-    updateTotalTravelers();
-    updateButtonStates(); // Update button states after decrementing
+    if (type === 'adults' && adultCount > 0) adultCount--;
+    else if (type === 'children' && childCount > 0) childCount--;
+    updateTravelers();
 }
 
-function updateTotalTravelers() {
-    const totalTravelers = adultCount + childCount;
-    document.getElementById("total-travelers").textContent = totalTravelers;
+function updateTravelers() {
+    document.getElementById("adult-count").textContent = adultCount;
+    document.getElementById("child-count").textContent = childCount;
+    document.getElementById("total-travelers").textContent = adultCount + childCount;
+    updateButtonStates();
 }
 
 function updateButtonStates() {
-    // Disable the decrement button for adults if the count is at minimum (1)
     document.querySelector("button[onclick=\"decrement('adults')\"]").disabled = (adultCount <= 0);
-
-    // Disable the decrement button for children if the count is at minimum (0)
     document.querySelector("button[onclick=\"decrement('children')\"]").disabled = (childCount <= 0);
 }
 
-// Close the popup when clicking outside
 window.onclick = function(event) {
-    const popup = document.getElementById("travelers-popup");
-    if (event.target !== popup && !popup.contains(event.target) && event.target !== document.querySelector(".travelers-selection-trigger")) {
-        popup.style.display = "none";
+    if (event.target !== travelPopup && !travelPopup.contains(event.target) && event.target !== document.querySelector(".travelers-selection-trigger")) {
+        travelPopup.style.display = "none";
     }
 };
-
-
 
 // Array of image URLs and descriptions for the gallery
 const images = [
@@ -201,41 +184,28 @@ const images = [
     { src: "./assets/images/house8.jpg", description: "Gorgeous mountain landscape covered in mist." }
 ];
 
+
 let currentIndex = 0;
 
 function openGallery() {
-    const modal = document.getElementById("image-gallery-modal");
     modal.style.display = "flex";
-    currentIndex = 0; // Start at the first image
+    currentIndex = 0;
     updateGalleryImage();
 }
 
 function closeGallery() {
-    const modal = document.getElementById("image-gallery-modal");
     modal.style.display = "none";
 }
 
 function updateGalleryImage() {
-    const galleryImage = document.getElementById("gallery-image");
-    const imageCount = document.getElementById("image-count");
-    const imageDescription = document.getElementById("image-description");
-    const prevButton = document.getElementById("prevButton");
-    const nextButton = document.getElementById("nextButton");
-
-    // Update image source and description
     galleryImage.src = images[currentIndex].src;
     imageDescription.textContent = images[currentIndex].description;
     imageCount.textContent = `${currentIndex + 1} / ${images.length}`;
-
-    // Disable the previous button on the first image
     prevButton.disabled = currentIndex === 0;
-
-    // Disable the next button on the last image
     nextButton.disabled = currentIndex === images.length - 1;
 }
 
 function prevImage() {
-    // Only go to the previous image if it's not the first one
     if (currentIndex > 0) {
         currentIndex--;
         updateGalleryImage();
@@ -243,137 +213,71 @@ function prevImage() {
 }
 
 function nextImage() {
-    // Only go to the next image if it's not the last one
     if (currentIndex < images.length - 1) {
         currentIndex++;
         updateGalleryImage();
     }
 }
 
-// Close modal when clicking outside of the image
 window.onclick = function(event) {
-    const modal = document.getElementById("image-gallery-modal");
-    if (event.target === modal) {
-        closeGallery();
-    }
-}
+    if (event.target === modal) closeGallery();
+};
 
-
-
-
-// Check if the state is saved in localStorage
+// Save state and update icon
 if (localStorage.getItem("isSaved") === "true") {
-    // If the state is saved, update the icon to red
     heartIcon.classList.remove("fa-regular");
     heartIcon.classList.add("fa-solid", "fa-heart");
 }
 
-// Add click event listener to toggle the state
 saveButton.addEventListener("click", () => {
     const isSaved = heartIcon.classList.contains("fa-solid");
-
-    if (isSaved) {
-        // If already saved (icon is red), revert it and remove from localStorage
-        heartIcon.classList.remove("fa-solid", "fa-heart");
-        heartIcon.classList.add("fa-regular", "fa-heart");
-        localStorage.setItem("isSaved", "false");
-    } else {
-        // If not saved, update the icon to red and save the state to localStorage
-        heartIcon.classList.remove("fa-regular");
-        heartIcon.classList.add("fa-solid", "fa-heart");
-        localStorage.setItem("isSaved", "true");
-    }
+    heartIcon.classList.toggle("fa-solid", !isSaved);
+    heartIcon.classList.toggle("fa-regular", isSaved);
+    localStorage.setItem("isSaved", !isSaved ? "true" : "false");
 });
 
+// Share modal
+const shareModal = document.getElementById("shareModal");
+const copyLinkBtn = document.getElementById("copyLinkBtn");
 
-
-
-// Function to show the modal and dynamically update it
 function showModal() {
-    // Get the modal element
-    const modal = document.getElementById("shareModal");
-
-    // Get the modal image and heading elements
-    const modalImage = document.getElementById("modalImage");
-    const modalHeading = document.getElementById("modalHeading");
-
-    // Get the main image and heading from your gallery (based on class names)
-    const mainImage = document.querySelector(".gallery-main-img"); // Select the main image element
-    const mainHeading = document.querySelector(".property-title"); // Select the main heading element
-
-    // Check if the main image and heading exist
+    shareModal.style.display = "block";
+    const mainImage = document.querySelector(".gallery-main-img");
+    const mainHeading = document.querySelector(".property-title");
     if (mainImage && mainHeading) {
-        // Update the modal image and heading with the content of the main image and heading
-        modalImage.src = mainImage.src; // Set the modal image source to the main image's source
-        modalHeading.innerText = mainHeading.innerText; // Set the modal heading text to the main heading's text
+        document.getElementById("modalImage").src = mainImage.src;
+        document.getElementById("modalHeading").innerText = mainHeading.innerText;
     }
-
-    // Display the modal
-    modal.style.display = "block";
 }
 
-// Function to hide the modal
 function hideModal() {
-    const modal = document.getElementById("shareModal");
-    modal.style.display = "none";
+    shareModal.style.display = "none";
 }
 
-// Function to copy the website link
 function copyLink() {
-    const copyText = window.location.href; // Use the current page's URL
-    const textArea = document.createElement("textarea");
-    textArea.value = copyText;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand("copy");
-    document.body.removeChild(textArea);
-
-    // Change button text to "Link Copied!"
-    const copyButton = document.getElementById("copyLinkBtn");
-    copyButton.innerText = "Link Copied!";
-
-    // Reset the button text after 3 seconds
-    setTimeout(function() {
-        copyButton.innerText = "Copy Website Link"; // Reset back to original text
-    }, 3000); // 3 seconds delay
+    navigator.clipboard.writeText(window.location.href).then(() => {
+        document.getElementById("copyConfirmation").style.display = "block";
+        const toast = document.getElementById("toastNotification");
+        toast.style.display = "block";
+        setTimeout(() => {
+            toast.style.display = "none";
+        }, 3000);
+    }).catch(console.error);
 }
 
-// Event listener for the share button
-document.getElementById("shareButton").onclick = function() {
-    showModal(); // Show the modal when the share button is clicked
-};
+document.getElementById("shareButton").onclick = showModal;
+document.getElementById("closeModal").onclick = hideModal;
+window.onclick = (event) => event.target === shareModal ? hideModal() : null;
+copyLinkBtn.onclick = copyLink;
 
-// Event listener for closing the modal
-document.getElementById("closeModal").onclick = function() {
-    hideModal(); // Close the modal when the close button is clicked
-};
-
-// Event listener for closing the modal if the user clicks outside the modal
-window.onclick = function(event) {
-    const modal = document.getElementById("shareModal");
-    if (event.target === modal) {
-        hideModal(); // Close the modal if the user clicks outside of it
-    }
-};
-
-// Event listener for copying the link
-document.getElementById("copyLinkBtn").onclick = function() {
-    copyLink(); // Copy the link when the "Copy Link" button is clicked
-};
-
-
-const gallerySide = document.querySelector('.gallery-side');
-const dots = document.querySelectorAll('.dot');
-
-gallerySide.addEventListener('scroll', () => {
+// Gallery dots and scrolling
+gallerySide.addEventListener('scroll', debounce(() => {
     const index = Math.round(gallerySide.scrollLeft / gallerySide.clientWidth);
     updateDots(index);
-});
+}, 100));
 
 function updateDots(index) {
-    dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
-    });
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
 }
 
 function scrollToImage(index) {
@@ -381,23 +285,10 @@ function scrollToImage(index) {
     updateDots(index);
 }
 
-
-
-document.getElementById("copyLinkBtn").addEventListener("click", function() {
-    // Copy the current page URL to clipboard
-    navigator.clipboard.writeText(window.location.href).then(() => {
-        // Show confirmation message in modal
-        document.getElementById("copyConfirmation").style.display = "block";
-
-        // Show toast notification
-        const toast = document.getElementById("toastNotification");
-        toast.style.display = "block";
-        
-        // Hide the toast after 3 seconds
-        setTimeout(() => {
-            toast.style.display = "none";
-        }, 3000);
-    }).catch((error) => {
-        console.error("Error copying text: ", error);
-    });
-});
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
