@@ -248,38 +248,39 @@
 
 
 /* Gallery container */
+/* Gallery container */
 .gallery {
     display: flex;
     flex-wrap: nowrap; /* Prevent wrapping to a new line */
-    justify-content: space-between;
-    gap: 20px;
+    gap: 0px;
 }
 
 /* Main image container */
 .gallery-main {
-    flex: 2; /* Main image takes more space */
+    flex: 1; /* Adjusted to take equal space */
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 /* Side images container styled as a grid */
 .gallery-side {
-    flex: 1; /* Side images column takes less space */
+    flex: 1; /* Adjusted to take equal space */
     display: grid;
     grid-template-columns: 1fr 1fr; /* Two images per row */
-    gap: 10px;
+    gap: 2px;
     background-color: #f8f8f8;
     border: 2px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
+    padding: 5px;
 }
 
 /* Individual side images */
 .gallery-side-img {
     width: 100%;
     object-fit: cover;
-    height: 120px;
+    height: 100px;
     cursor: pointer;
     border-radius: 4px;
 }
@@ -288,9 +289,9 @@
 .gallery-main-img {
     width: 100%;
     object-fit: cover;
-    max-height: 500px;
     border-radius: 8px;
 }
+
 
 /* Modal Styling */
 .gallery-modal {
@@ -1702,24 +1703,263 @@ margin: 20px auto;  /* Center alignment and vertical spacing */
 
 /* 4*/
 
+/* General Container */
+.pd-cancellation-container {
+    margin: 40px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    padding: 25px;
+    border-radius: 10px;
+}
 
-/* Refund Details */
+/* Left Side - Heading */
+.pd-cancellation-left {
+    flex: 1;
+    max-width: 200px;
+    justify-self: center;
+    align-self: center;
+    text-align: center;
+}
+
+/* Right Side - Content */
+.pd-cancellation-right {
+    flex: 3;
+    padding-left: 20px;
+}
+
+/* Timeline Styles */
+.pd-timeline {
+    padding: 20px 0;
+    margin: 20px 0;
+    position: relative;
+}
+
+/* Horizontal Timeline Bar (default) */
+.pd-timeline-bar {
+    position: relative;
+    height: 4px;
+    background-color: #e5e7eb;
+    border-radius: 2px;
+    margin: 40px 0;
+}
+
+/* Progress Track */
+.progress-track {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 50%; /* Adjust based on current progress */
+    background: linear-gradient(to right, #006aff, #00a3ff);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+/* Timeline Points */
+.pd-timeline-point {
+    position: absolute;
+    transform: translateX(-50%);
+    top: -8px;
+}
+
+/* Point Markers */
+.point-marker {
+    width: 20px;
+    height: 20px;
+    background: white;
+    border: 2px solid #006aff;
+    border-radius: 50%;
+    position: relative;
+    margin: 0 auto;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.point-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+}
+
+/* Labels */
+.pd-timeline-label {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: max-content;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+.label-main {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #4b5563;
+    margin-bottom: 2px;
+}
+
+.label-date {
+    display: block;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* Hover Effects */
+.pd-timeline-point:hover .point-marker {
+    transform: scale(1.1);
+    border-color: #0055cc;
+    box-shadow: 0 0 0 4px rgba(0, 106, 255, 0.1);
+}
+
+.pd-timeline-point:hover .pd-timeline-label {
+    opacity: 1;
+}
+
+/* Vertical Timeline for Small Screens */
+@media (max-width: 768px) {
+    .pd-timeline {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+        margin: 20px 0;
+    }
+
+    .pd-timeline-bar {
+        width: 4px; /* Adjust width for vertical bar */
+        height: auto;
+        background-color: #e5e7eb;
+        margin: 0 auto;
+        border-radius: 2px;
+    }
+
+    /* Vertical progress track */
+    .progress-track {
+        width: 100%;
+        height: 50%; /* Adjust this based on progress */
+        transition: height 0.3s ease;
+    }
+
+    /* Adjust point placement for vertical layout */
+    .pd-timeline-point {
+        position: relative;
+        left: 10px; /* Offset to the right of the bar */
+        top: auto;
+        transform: translateX(0);
+        margin-bottom: 40px; /* Space between points */
+    }
+
+    /* Move labels to the right of points */
+    .pd-timeline-label {
+        position: relative;
+        top: 0;
+        left: 30px; /* Offset to the right of the marker */
+        transform: none;
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .pd-cancellation-container {
+        padding: 15px;
+    }
+
+    .pd-timeline-bar {
+        width: 3px;
+    }
+
+    .progress-track {
+        height: 40%; /* Adjust for mobile view */
+    }
+
+    .pd-timeline-point {
+        left: 0;
+        margin-bottom: 20px;
+    }
+
+    .pd-timeline-label {
+        left: 0;
+        text-align: center;
+        font-size: 13px;
+    }
+}
+
+
+
+/* Refund Details Container */
 .pd-refund-detail {
     margin: 20px 0;
     padding: 20px;
     border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    background-color: #f3f4f6;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #006aff;
+    transition: box-shadow 0.2s ease;
 }
 
+/* Icons for refund titles */
+.pd-refund-title::before {
+    content: "💰"; /* Default icon for "Full Refund" */
+    margin-right: 8px;
+    font-size: 1.2em;
+}
+
+.pd-refund-title.no-refund::before {
+    content: "🚫"; /* Icon for "No Refund" */
+}
+
+/* Refund Title */
 .pd-refund-title {
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 16px;
     margin-bottom: 8px;
+    color: #1f2937; /* Darker color for emphasis */
 }
 
+/* Refund Description */
 .pd-refund-description {
     font-size: 14px;
-    color: #666;
+    color: #4b5563;
+    line-height: 1.5;
+}
+
+/* Hover Effect */
+.pd-refund-detail:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Color adjustments based on refund type */
+.pd-refund-detail.full-refund {
+    border-left-color: #28a745;
+    background-color: #e6f7e6;
+}
+
+.pd-refund-detail.no-refund {
+    border-left-color: #dc3545;
+    background-color: #f8e6e6;
+}
+
+@media (max-width: 480px) {
+    /* Adjust padding and font size for smaller screens */
+    .pd-refund-detail {
+        padding: 15px;
+    }
+    
+    .pd-refund-title {
+        font-size: 15px;
+    }
+    
+    .pd-refund-description {
+        font-size: 13px;
+    }
 }
 
 
@@ -2403,6 +2643,9 @@ margin: 20px auto;  /* Center alignment and vertical spacing */
     cursor: pointer;
 }
 
+
+
+
 .gallery-main-img {
     width: 100%;
     height: auto;
@@ -2634,6 +2877,11 @@ margin: 20px auto;  /* Center alignment and vertical spacing */
     cursor: pointer;
 }
 
+@media (max-width: 768px) {
+    .view-more {
+        position: sticky;
+    }
+}
 
 
 
@@ -2842,7 +3090,8 @@ margin: 20px auto;  /* Center alignment and vertical spacing */
 
 
  /* Modal Styling */
- .share-modal {
+ /* Modal Overlay */
+.share-modal {
     display: none; /* Hidden by default */
     position: fixed;
     z-index: 1; /* Sit on top */
@@ -2851,137 +3100,48 @@ margin: 20px auto;  /* Center alignment and vertical spacing */
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0,0,0); /* Black with opacity */
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
     padding-top: 60px;
-}
-.share-modal-content {
-    background-color: #fff;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
-    border-radius: 10px;
-}
-
-
-.share-modal-header {
-    text-align: center;
-    margin-bottom: 20px;
-    border: 1px solid rgba(0,0,0,0.4);
-    border-radius: 10px;
-    padding: 8px;
-}
-.share-modal-header h3 {
-    margin: 10px 0;
-}
-.share-modal-header img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-}
-.share-social-icons {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-}
-.share-social-icons i {
-    font-size: 30px;
-    cursor: pointer;
-}
-.share-copy-link-btn {
-    padding: 10px;
-    background-color: #008CBA;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    text-align: center;
-}
-.share-copy-link-btn:hover {
-    background-color: #006f85;
-}
-.share-copy-link-btn:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-}
-
-/* Close Button */
-.share-close-btn {
-    color: #aaa;
-    float: left;
-    font-size: 28px;
-    font-weight: bold;
-}
-.share-close-btn:hover,
-.share-close-btn:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-
-/* Modal Styles */
-.share-modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Fixed position */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.4); /* Black with transparency */
 }
 
 /* Modal Content */
 .share-modal-content {
     position: relative;
     background-color: #fff;
-    margin: 10% auto; /* Center the modal */
+    margin: 5% auto;
     padding: 20px;
     width: 80%;
-    max-width: 600px;
+    max-width: 500px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Box shadow for depth */
 }
 
 /* Modal Header */
 .share-modal-header {
-    display: flex; /* Flexbox for horizontal alignment */
-    align-items: center; /* Center content vertically */
-    margin-bottom: 20px;
-    justify-content: space-between; /* Space out the image and heading */
-}
-
-/* Image in the modal */
-.share-modal-header img {
-    width: 45%; /* Set width to 45% to give space for heading */
-    height: auto;
-    object-fit: cover; /* Ensure the image covers the area without distortion */
-    border-radius: 8px; /* Rounded corners for the image */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow to image */
-}
-
-
-
-
-/* Modal Header */
-.share-modal-header {
     display: flex;
     align-items: center;
-    margin-bottom: 10px; /* Decrease margin between image and text */
+    margin-bottom: 20px;
+    justify-content: space-between;
+    text-align: center;
+    background-color:#f8fafc;
+    box-shadow: 15px;
+}
+
+.share-modal-header h3 {
+    font-size: 20px;
+    margin: 10px 0;
 }
 
 .share-modal-header img {
-    width: 45%;
-    border-radius: 8px;
+    width: 100%;
+    max-width: 45%; /* Limit image width */
+    height: auto;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-right: 15px; /* Add some space between image and text */
+    margin-right: 15px;
 }
 
+/* Responsive Modal Text */
 .modal-text {
     display: flex;
     flex-direction: column;
@@ -3001,6 +3161,106 @@ margin: 20px auto;  /* Center alignment and vertical spacing */
     color: #666;
     margin-top: 5px;
 }
+
+/* Social Icons */
+.share-social-icons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.share-social-icons i {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* Copy Link Button */
+.share-copy-link-btn {
+    padding: 10px;
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+}
+
+.share-copy-link-btn:hover {
+    background-color: #006f85;
+}
+
+.share-copy-link-btn:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+/* Close Button */
+.share-close-btn {
+    color: #aaa;
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.share-close-btn:hover,
+.share-close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .share-modal-content {
+        width: 90%;
+        margin: 10% auto;
+        padding: 15px;
+    }
+    
+    .share-modal-header h3 {
+        font-size: 18px;
+    }
+    
+    .share-social-icons i {
+        font-size: 25px; /* Adjust icon size for smaller screens */
+    }
+    
+    .share-copy-link-btn {
+        padding: 8px;
+        font-size: 14px; /* Adjust button text size */
+    }
+}
+
+@media (max-width: 480px) {
+    .share-modal-content {
+        width: 95%;
+        padding: 10px;
+    }
+    
+    .share-modal-header img {
+        max-width: 40%; /* Adjust image size on very small screens */
+    }
+
+    #modalHeading {
+        font-size: 18px;
+    }
+
+    .modal-rating,
+    .modal-location {
+        font-size: 14px;
+    }
+    
+    .share-social-icons i {
+        font-size: 20px;
+    }
+    
+    .share-copy-link-btn {
+        padding: 6px;
+        font-size: 12px;
+    }
+}
+
 
 /* Toast Notification */
 .toast-notification {
